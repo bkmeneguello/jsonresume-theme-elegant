@@ -41,6 +41,8 @@
     "grunt-contrib-less": "^2.0.0",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-exec": "^0.4.6",
-    "less": "^3.8.1"
+    "grunt-file-append": "0.0.7",
+    "less": "^3.8.1",
+    "pug-cli": "^1.0.0-alpha6"
   }
 }

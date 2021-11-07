@@ -10,24 +10,27 @@ mixin profile_card_detail(icon, info, itemprop, icon_title)
 
 mixin render_links(profiles)
   each profile in profiles
+    - 
+      var classes = []
+      classes.push("link-" + profile.label)
+      classes.push("icon-" + profile.label)
+      if (profile.username && profile['x-printable'] !== false)
+        classes.push("printable")
     a.fs-2x.social-link(
       href=profile.url,
       target="_blank",
       data-toggle="tooltip",
       title= resume.basics.name + " on " + profile.network,
-      class="link-" + profile.label + " icon-" + profile.label)
-      if profile.network.toLowerCase() == 'meetup'
-        span.path2
-        span.path3
-      if profile.network.toLowerCase() == 'gitlab'
-        span.path1
-        span.path2
-        span.path3
-        span.path4
-        span.path5
-        span.path6
-        span.path7
-        span.path8
+      class=classes)
+      if profile.username
+        case profile.network.toLowerCase()
+          when 'linkedin'
+            span.path= `/in/${profile.username}`
+          when 'gitlab'
+          when 'twitter'
+            span.path= `@${profile.username}`
+          default
+            span.path= profile.username
 
 section.col-md-3.card-wrapper.profile-card-wrapper.affix
   .card.profile-card
@@ -56,14 +59,15 @@ section.col-md-3.card-wrapper.profile-card-wrapper.affix
       if resume.basics.website
         +profile_card_detail("icon-link")
           a(href=resume.basics.website, target="_blank")= resume.basics.website
-      if resume.basics.languages
-        +profile_card_detail('icon-language', resume.basics.languages, null, 'Languages I speak')
+      if resume.languages
+        +profile_card_detail('icon-language', null, null, 'Languages I speak')
+          each lang in resume.languages
+            span(title=lang.fluency).list-item= lang.language
 
     hr
 
-    .social-links.text-center
-      div
-        +render_links(resume.basics.top_five_profiles)
+    .social-links
+      +render_links(resume.basics.top_five_profiles)
 
         if resume.basics.remaining_profiles.length > 0
           button.btn.btn-default.btn-sm.btn-circle-sm.pull-right.js-profiles-collapse(

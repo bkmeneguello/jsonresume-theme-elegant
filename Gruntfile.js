@@ -21,8 +21,15 @@ module.exports = function(grunt) {
                 }
             },
             pug: {
-                files: ['index.pug'],
-                tasks: ['exec:compile_pug'],
+                files: ['index.pug', 'pug/**/*.pug'],
+                tasks: ['compile:pug'],
+                options: {
+                    nospawn: true
+                }
+            },
+            resume: {
+                files: ['resume.json'],
+                tasks: ['copy:resumejson'],
                 options: {
                     nospawn: true
                 }
@@ -36,7 +43,17 @@ module.exports = function(grunt) {
                 cmd: "node render.js"
             },
             compile_pug: {
-                cmd: 'pug -c index.pug --out tpl && echo "module.exports = { renderResume: template };" >> ./tpl/index.js'
+                cmd: 'pug -c index.pug --out tpl'   
+            }
+        },
+        file_append: {
+            tpl_index: {
+                files: [
+                    {
+                        append: "\nmodule.exports = { renderResume: template };",
+                        input: './tpl/index.js'
+                    }
+                ]
             }
         },
         copy: {
@@ -75,6 +92,8 @@ module.exports = function(grunt) {
     // Load the plugin to execute shell commands
     grunt.loadNpmTasks('grunt-exec');
 
+    grunt.loadNpmTasks('grunt-file-append');
+
     // Load the plugin to clean directories
     grunt.loadNpmTasks('grunt-contrib-clean')
 
@@ -102,5 +121,5 @@ module.exports = function(grunt) {
         'build',
         'exec:run_server'
     ]);
-    grunt.registerTask('compile:pug', ['exec:compile_pug']);
+    grunt.registerTask('compile:pug', ['exec:compile_pug', 'file_append:tpl_index']);
 }

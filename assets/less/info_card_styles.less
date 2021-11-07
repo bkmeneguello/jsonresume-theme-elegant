@@ -47,6 +47,11 @@
 
         .info {
             font-size: 0.8em;
+            .list-item {
+                &:not(:first-child):before {
+                    content: ", ";
+                }
+            }
         }
 
         .icon, .info {
@@ -71,6 +76,7 @@
 
 .social-links {
     line-height: 2.5;
+    text-align: center;
 }
 
 .social-link {
@@ -80,6 +86,9 @@
 
     &:first-child {
         margin-left: 0;
+    }
+    .path {
+        display: none;
     }
 
     &:hover {

@@ -22,10 +22,6 @@ function render(resume) {
     resume.basics.summary = convertMarkdown(resume.basics.summary);
     resume.basics.computed_location = _.compact(addressValues).join(', ');
 
-    if (resume.languages) {
-        resume.basics.languages = _.pluck(resume.languages, 'language').join(', ');
-    }
-
     _(resume.basics.profiles).forEach(p => {
         const label = p.network.toLowerCase();
 
@@ -60,6 +56,10 @@ function render(resume) {
         project_info.highlights = _(project_info.highlights)
             .map(highlight => convertMarkdown(highlight));
     });
+
+    const m = moment().subtract(10, 'years');
+    resume.last_experiences = resume.work.slice(0, 5).filter((w) => !w.endDate || moment(w.endDate, 'YYYY-MM-DD') > m);
+    resume.remaining_experiences = resume.work.slice(resume.last_experiences.length);
 
     _(resume.work).forEach(work_info => {
         const start_date = moment(work_info.startDate, 'YYYY-MM-DD');

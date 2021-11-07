@@ -4,7 +4,7 @@
     }
 
     .profile-card {
-        text-align: center;
+        text-align: left;
     }
 
     .profile-pic {
@@ -23,8 +23,8 @@
 
     .contact-details {
         .detail {
-            .make-xs-column(3);
-            padding: 0;
+            display: block;
+            width: auto;
         }
     }
 
@@ -32,7 +32,42 @@
         display: none;
     }
 
-    .pagebreak {
-        page-break-before: always;
+    .detail {
+        break-inside: avoid-page;
+    }
+
+    .current-event {
+        display: none;
+    }
+
+    .card {
+        border: none;
+        
+        .card-nested {
+            break-before: avoid;
+            break-inside: avoid;
+        }
+
+        .social-links {
+            display: table;
+            border-spacing: 0.4em;
+            text-align: left;
+            
+            .social-link {
+                display: none;
+                &.printable {
+                    display: table-row;
+                }
+
+                &:before {
+                    display: table-cell;
+                }
+                .path {
+                    display: table-cell;
+                    vertical-align: middle;
+                    font-size: 0.6em;
+                }
+            }
+        }
     }
 }

@@ -1,4 +1,4 @@
-unless _.isEmpty(resume.work)
+unless _.isEmpty(resume.last_works)
   .detail#work-experience
     .icon
       i.fs-lg.icon-office
@@ -8,7 +8,7 @@ unless _.isEmpty(resume.work)
       h4.title.text-uppercase Work Experience
 
       ul.list-unstyled.clear-margin
-        each experience in resume.work
+        each experience in resume.last_experiences
           li.card.card-nested.clearfix
             .content
               p.clear-margin.relative
@@ -41,3 +41,15 @@ unless _.isEmpty(resume.work)
                 ul
                   each highlight in experience.highlights
                     li.mop-wrapper!= highlight
+        if resume.remaining_experiences
+          li.card.card-nested.clearfix
+            .content
+              p.clear-margin.relative
+                - var count = resume.remaining_experiences.length
+                strong= `${count == 1? 'one' : count} other ${count == 1? 'experience' : 'experiences'}`
+
+                p.text-muted
+                  small
+                    span.space-right
+                      |between #{resume.remaining_experiences.slice(-1)[0].startDate} and #{resume.remaining_experiences[0].endDate}
+          

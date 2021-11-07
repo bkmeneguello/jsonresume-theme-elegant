@@ -328,8 +328,8 @@
 /* the version when the icon file is last updated */
 @font-face {
   font-family: 'jst-elegant';
-  src: url("//unpkg.com/jsonresume-theme-elegant@1.12.0/assets/icomoon/fonts/icomoon.eot?f218wo");
-  src: url("//unpkg.com/jsonresume-theme-elegant@1.12.0/assets/icomoon/fonts/icomoon.eot?f218wo#iefix") format('embedded-opentype'), url("//unpkg.com/jsonresume-theme-elegant@1.12.0/assets/icomoon/fonts/icomoon.ttf?f218wo") format('truetype'), url("//unpkg.com/jsonresume-theme-elegant@1.12.0/assets/icomoon/fonts/icomoon.woff?f218wo") format('woff'), url("//unpkg.com/jsonresume-theme-elegant@1.12.0/assets/icomoon/fonts/icomoon.svg?f218wo#icomoon") format('svg');
+  src: url("https://unpkg.com/jsonresume-theme-elegant@1.12.0/assets/icomoon/fonts/icomoon.eot?f218wo");
+  src: url("https://unpkg.com/jsonresume-theme-elegant@1.12.0/assets/icomoon/fonts/icomoon.eot?f218wo#iefix") format('embedded-opentype'), url("https://unpkg.com/jsonresume-theme-elegant@1.12.0/assets/icomoon/fonts/icomoon.ttf?f218wo") format('truetype'), url("https://unpkg.com/jsonresume-theme-elegant@1.12.0/assets/icomoon/fonts/icomoon.woff?f218wo") format('woff'), url("https://unpkg.com/jsonresume-theme-elegant@1.12.0/assets/icomoon/fonts/icomoon.svg?f218wo#icomoon") format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -617,6 +617,9 @@ body {
 .contact-details .detail .info {
   font-size: 0.8em;
 }
+.contact-details .detail .info .list-item:not(:first-child):before {
+  content: ", ";
+}
 .contact-details .detail .icon,
 .contact-details .detail .info {
   display: table-cell;
@@ -653,6 +656,7 @@ body {
 }
 .social-links {
   line-height: 2.5;
+  text-align: center;
 }
 .social-link {
   margin-left: 5px;
@@ -661,6 +665,9 @@ body {
 }
 .social-link:first-child {
   margin-left: 0;
+}
+.social-link .path {
+  display: none;
 }
 .social-link:hover {
   text-decoration: none;
@@ -969,7 +976,7 @@ body {
     content: none !important;
   }
   .profile-card {
-    text-align: center;
+    text-align: left;
   }
   .profile-pic {
     display: inline-block;
@@ -984,19 +991,43 @@ body {
     margin-left: 15px;
   }
   .contact-details .detail {
-    position: relative;
-    float: left;
-    width: 25%;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding: 0;
+    display: block;
+    width: auto;
   }
   .floating-nav,
   .floating-nav-trigger {
     display: none;
   }
-  .pagebreak {
-    page-break-before: always;
+  .detail {
+    break-inside: avoid-page;
+  }
+  .current-event {
+    display: none;
+  }
+  .card {
+    border: none;
+  }
+  .card .card-nested {
+    break-before: avoid;
+    break-inside: avoid;
+  }
+  .card .social-links {
+    display: table;
+    border-spacing: 0.4em;
+    text-align: left;
+  }
+  .card .social-links .social-link {
+    display: none;
+  }
+  .card .social-links .social-link.printable {
+    display: table-row;
+  }
+  .card .social-links .social-link:before {
+    display: table-cell;
+  }
+  .card .social-links .social-link .path {
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 0.6em;
   }
 }
